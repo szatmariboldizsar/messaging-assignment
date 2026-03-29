@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using DAL;
+using DAL.Services;
 
 namespace messaging_assignment
 {
@@ -27,6 +30,9 @@ namespace messaging_assignment
             var conn = builder.Configuration.GetConnectionString("Default");
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conn));
 
+            builder.Services.AddSingleton<UserService>();
+            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<MessageService>();
             return builder.Build();
         }
     }

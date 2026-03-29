@@ -1,10 +1,10 @@
-﻿using messaging_assignment.DAL.Entities;
+﻿using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace messaging_assignment.DAL
+namespace DAL
 {
     public class AppDbContext : DbContext
     {
@@ -13,5 +13,6 @@ namespace messaging_assignment.DAL
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<UserConnection> UserConnections { get; set; }
     }
 }
