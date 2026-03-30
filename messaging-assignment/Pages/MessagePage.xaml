@@ -50,8 +50,8 @@
 
         </Grid>
         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" Grid.Row="1">
-            <Entry x:Name="MessageEntry" Text="{Binding NewMessageContent}" Placeholder="Type your message..." Margin="5,5" />
-            <Button Text="Send" Command="{Binding SendMessageCommand}" IsEnabled="{Binding SendButtonActive}" CornerRadius="25" Padding="0" Grid.Column="2" Margin="5"/>
+            <Entry x:Name="MessageEntry" Text="{Binding NewMessageContent}" Placeholder="Type your message..." Margin="5,5" ReturnCommand="{Binding SendMessageCommand}" IsEnabled="{Binding SendActive}" />
+            <Button Text="Send" Command="{Binding SendMessageCommand}" IsEnabled="{Binding SendActive}" CornerRadius="25" Padding="0" Grid.Column="2" Margin="5"/>
         </Grid>
     </Grid>
 </ContentPage>

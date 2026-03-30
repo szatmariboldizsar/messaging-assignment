@@ -46,7 +46,7 @@ namespace messaging_assignment.ViewModels
         [ObservableProperty]
         public partial ObservableCollection<Message> Messages { get; set; } = new ObservableCollection<Message>();
 
-        public bool SendButtonActive { get => LoggedInUser.MessagesSentToday < 5 || LoggedInUser.LastMessageSent.GetValueOrDefault().Day != DateTime.Now.Day; } 
+        public bool SendActive { get => LoggedInUser.MessagesSentToday < 5 || LoggedInUser.LastMessageSent.GetValueOrDefault().Day != DateTime.Now.Day; } 
 
         partial void OnToUserIdChanged(long value)
         {
@@ -83,7 +83,7 @@ namespace messaging_assignment.ViewModels
 
                 LoggedInUser.MessagesSentToday = LoggedInUser.MessagesSentToday >= 5 ? (short)1 : (short)(LoggedInUser.MessagesSentToday + 1);
                 await _userService.UpdateUserAsync(LoggedInUser);
-                OnPropertyChanged(nameof(SendButtonActive));
+                OnPropertyChanged(nameof(SendActive));
                 NewMessageContent = "";
             }
         }
