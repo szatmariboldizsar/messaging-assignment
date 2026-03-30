@@ -12,21 +12,21 @@
 
 
         <Label Text="Username:" />
-        <Entry Text="{Binding Username}" />
+        <Entry Text="{Binding Username}" ReturnCommand="{Binding RegisterCommand}"/>
         <Label Text="{Binding UsernameError}"
            TextColor="{StaticResource NegativeTertiary}"
            FontSize="Caption"
            IsVisible="{Binding HasUsernameError}" />
 
         <Label Text="Full Name:" />
-        <Entry Text="{Binding FullName}" />
+        <Entry Text="{Binding FullName}" ReturnCommand="{Binding RegisterCommand}"/>
         <Label Text="{Binding FullNameError}"
             TextColor="{StaticResource NegativeTertiary}"
             FontSize="Caption"
             IsVisible="{Binding HasFullNameError}" />
         
         <Label Text="Password:" />
-        <Entry Text="{Binding Password}"  IsPassword="True" />
+        <Entry Text="{Binding Password}"  IsPassword="True" ReturnCommand="{Binding RegisterCommand}"/>
         <Label Text="{Binding PasswordError}"
             TextColor="{StaticResource NegativeTertiary}"
             FontSize="Caption"

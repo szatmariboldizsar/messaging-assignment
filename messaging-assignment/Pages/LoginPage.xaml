@@ -21,9 +21,9 @@
         SemanticProperties.HeadingLevel="Level1" Padding="5" />
 
         <Label Text="Username:" />
-        <Entry Text="{Binding Username}" />
+        <Entry Text="{Binding Username}" ReturnCommand="{Binding LoginCommand}"/>
         <Label Text="Password:" />
-        <Entry Text="{Binding Password}"  IsPassword="True" />
+        <Entry Text="{Binding Password}"  IsPassword="True" ReturnCommand="{Binding LoginCommand}"/>
 
         <Button
             x:Name="LoginBtn"
