@@ -6,4 +6,52 @@
              x:DataType="viewmodels:MessageViewModel"
              x:Class="messaging_assignment.Pages.MessagePage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <controls:MessageTemplateSelector x:Key="MsgSelector" >
+                <controls:MessageTemplateSelector.IncomingTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,*" Padding="4">
+                            <Border Style="{StaticResource MessageBubbleIncoming}">
+                                <Label Text="{Binding Content}" Style="{StaticResource MessageBubbleLabel}" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </controls:MessageTemplateSelector.IncomingTemplate>
+
+                <controls:MessageTemplateSelector.OutgoingTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,Auto" Padding="4">
+                            <Border Grid.Column="1" Style="{StaticResource MessageBubbleOutgoing}">
+                                <Label Text="{Binding Content}" Style="{StaticResource MessageBubbleLabelOutgoing}"/>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </controls:MessageTemplateSelector.OutgoingTemplate>
+            </controls:MessageTemplateSelector>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, Auto">
+
+        <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="10">
+
+            <Label Text="{Binding ToUserFullName}" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1" />
+            <BoxView Color="{StaticResource Gray300Brush}" HorizontalOptions="Fill" HeightRequest="1" Grid.Row="1"/>
+
+
+            <CollectionView ItemsSource="{Binding Messages}"
+                    ItemTemplate="{StaticResource MsgSelector}" Grid.Row="2">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="4" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+
+        </Grid>
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" Grid.Row="1">
+            <Entry x:Name="MessageEntry" Text="{Binding NewMessageContent}" Placeholder="Type your message..." Margin="5,5" />
+            <Button Text="Send" Command="{Binding SendMessageCommand}" IsEnabled="{Binding SendButtonActive}" CornerRadius="25" Padding="0" Grid.Column="2" Margin="5"/>
+        </Grid>
+    </Grid>
 </ContentPage>

@@ -43,9 +43,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <VerticalStackLayout Margin="10,0,0,0" VerticalOptions="Center" HorizontalOptions="Center">
+                                <VerticalStackLayout Margin="10,0,0,0" VerticalOptions="Center" HorizontalOptions="Center" MaximumWidthRequest="400">
                                     <Label Text="{Binding User.FullName}" />
-                                    <Label Text="{Binding Message.Content, TargetNullValue='No messages yet',FallbackValue='No messages yet'}" LineBreakMode="WordWrap" Style="{StaticResource SeenMessageLabel}" >
+                                    <Label Text="{Binding Message.Content, TargetNullValue='No messages yet',FallbackValue='No messages yet'}" LineBreakMode="TailTruncation" Style="{StaticResource SeenMessageLabel}" >
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
                                              Binding="{Binding Message.IsSeen}"
@@ -116,9 +116,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <VerticalStackLayout Margin="10,0,0,0" VerticalOptions="Center" HorizontalOptions="Center">
+                                <VerticalStackLayout Margin="10,0,0,0" VerticalOptions="Center" HorizontalOptions="Center" MaximumWidthRequest="400">
                                     <Label Text="{Binding User.FullName}" />
-                                    <Label Text="{Binding Message.Content, TargetNullValue='No messages yet',FallbackValue='No messages yet'}" LineBreakMode="WordWrap" Style="{StaticResource SeenMessageLabel}" >
+                                    <Label Text="{Binding Message.Content, TargetNullValue='No messages yet',FallbackValue='No messages yet'}" LineBreakMode="TailTruncation" Style="{StaticResource SeenMessageLabel}" >
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
                                             Binding="{Binding Message.IsSeen}"

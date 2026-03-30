@@ -18,6 +18,34 @@ namespace DAL.Services
             _userService = userService;
         }
 
+        public async Task<bool> CreateMessage(Message message)
+        {
+            try
+            {
+                _dbContext.Messages.Add(message);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateMessage(Message message)
+        {
+            try
+            {
+                _dbContext.Messages.Update(message);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public async Task<List<Message>> GetMessagesForUsersAsync(long userId1, long userId2)
         {
             return await _dbContext.Messages.Where(m => (m.FromUserId == userId1 && m.ToUserId == userId2) || (m.FromUserId == userId2 && m.ToUserId == userId1)).OrderBy(m => m.DateSent).ToListAsync();

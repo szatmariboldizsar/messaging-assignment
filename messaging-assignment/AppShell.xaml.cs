@@ -8,7 +8,6 @@ namespace messaging_assignment
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(UsersPage), typeof(UsersPage));
             Routing.RegisterRoute(nameof(MessagePage), typeof(MessagePage));

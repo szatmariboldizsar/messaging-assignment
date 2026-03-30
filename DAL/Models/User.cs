@@ -21,5 +21,9 @@ namespace DAL.Models
 
         [Required]
         public bool IsHidden { get; set; }
+
+        public DateTime? LastMessageSent { get; set; }
+
+        public short MessagesSentToday { get; set; }
     }
 }
