@@ -8,7 +8,14 @@
              xmlns:dtos="clr-namespace:DAL.DTOs;assembly=DAL"
              NavigationPage.HasBackButton="False"
              Shell.BackButtonBehavior="{BackButtonBehavior IsVisible=False}"
+             xmlns:controls="clr-namespace:messaging_assignment.Controls"
              >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <controls:ReadConverter x:Key="ReadConverter" />
+            <controls:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="5">
             <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Center" >
@@ -35,11 +42,16 @@
                         StrokeShape="RoundRectangle 8"
                         Padding="5" 
                         >
+                            <FlyoutBase.ContextFlyout>
+                                <MenuFlyout >
+                                    <MenuFlyoutItem Text="Remove from Favorites" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=UnfavoriteUserCommand}" CommandParameter="{Binding User}" />
+                                    <MenuFlyoutItem Text="{Binding Message.IsSeen, Converter={StaticResource ReadConverter}}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=ToggleReadCommand}" CommandParameter="{Binding Message}" IsEnabled="{Binding Message, Converter={StaticResource NullToBooleanConverter}}"/>
+                                </MenuFlyout>
+                            </FlyoutBase.ContextFlyout>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
@@ -57,22 +69,13 @@
                                              Value="0">
                                                 <Setter Property="Text" Value="No messages yet" />
                                                 <Setter Property="FontAttributes" Value="Italic" />
+                                                <Setter Property="Style" Value="{StaticResource SeenMessageLabel}" />
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
                                 </VerticalStackLayout>
                                 <Button
                                 Grid.Column="1"
-                                Text="★"
-                                FontSize="32"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=UnfavoriteUserCommand}"
-                                CommandParameter="{Binding User}"
-                                HorizontalOptions="End"
-                                VerticalOptions="Center"
-                                Padding="0"
-                                />
-                                <Button
-                                Grid.Column="2"
                                 Text="Message"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=MessageUserCommand}"
                                 CommandParameter="{Binding User}"
@@ -80,7 +83,7 @@
                                 VerticalOptions="Center"
                                 Margin="4,0"/>
                                 <Button
-                                Grid.Column="3"
+                                Grid.Column="2"
                                 Text="Block"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=BlockUserCommand}"
                                 CommandParameter="{Binding User}"
@@ -108,13 +111,19 @@
                                 StrokeShape="RoundRectangle 8"
                                 Padding="5" 
                                 >
+                            <FlyoutBase.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Add to Favorites" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=FavoriteUserCommand}" CommandParameter="{Binding User}"/>
+                                    <MenuFlyoutItem Text="{Binding Message.IsSeen, Converter={StaticResource ReadConverter}}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=ToggleReadCommand}" CommandParameter="{Binding Message}" IsEnabled="{Binding Message, Converter={StaticResource NullToBooleanConverter}}"/>
+                                </MenuFlyout>
+                            </FlyoutBase.ContextFlyout>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
+
 
                                 <VerticalStackLayout Margin="10,0,0,0" VerticalOptions="Center" HorizontalOptions="Center" MaximumWidthRequest="400">
                                     <Label Text="{Binding User.FullName}" />
@@ -137,16 +146,6 @@
                                 </VerticalStackLayout>
                                 <Button
                                     Grid.Column="1"
-                                    Text="☆"
-                                    FontSize="32"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=FavoriteUserCommand}"
-                                    CommandParameter="{Binding User}"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Center"
-                                    Padding="0"
-                                    />
-                                <Button
-                                    Grid.Column="2"
                                     Text="Message"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=MessageUserCommand}"
                                     CommandParameter="{Binding User}"
@@ -154,7 +153,7 @@
                                     VerticalOptions="Center"
                                     Margin="4,0"/>
                                 <Button
-                                    Grid.Column="3"
+                                    Grid.Column="2"
                                     Text="Block"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersViewModel}}, Path=BlockUserCommand}"
                                     CommandParameter="{Binding User}"

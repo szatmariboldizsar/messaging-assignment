@@ -58,8 +58,11 @@ namespace messaging_assignment.ViewModels
             foreach (Message message in await _messageService.GetMessagesForUsersAsync(LoggedInUser.Id, ToUserId))
             {
                 Messages.Add(message);
-                message.IsSeen = true;
-                await _messageService.UpdateMessage(message);
+                if (message.ToUserId == LoggedInUser.Id)
+                {
+                    message.IsSeen = true;
+                    await _messageService.UpdateMessageAsync(message);
+                }
             }
         }
 
@@ -76,7 +79,7 @@ namespace messaging_assignment.ViewModels
                 DateSent = now
             };
 
-            if (await _messageService.CreateMessage(message))
+            if (await _messageService.CreateMessageAsync(message))
             {
                 Messages.Add(message);
                 LoggedInUser.LastMessageSent = now;

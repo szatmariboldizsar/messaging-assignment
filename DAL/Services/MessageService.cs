@@ -18,7 +18,7 @@ namespace DAL.Services
             _userService = userService;
         }
 
-        public async Task<bool> CreateMessage(Message message)
+        public async Task<bool> CreateMessageAsync(Message message)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace DAL.Services
             }
         }
 
-        public async Task<bool> UpdateMessage(Message message)
+        public async Task<bool> UpdateMessageAsync(Message message)
         {
             try
             {

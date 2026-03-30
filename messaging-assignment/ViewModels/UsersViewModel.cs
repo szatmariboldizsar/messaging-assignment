@@ -107,7 +107,14 @@ namespace messaging_assignment.ViewModels
             await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
         }
 
-        private void ResortUserCategories()
+        [RelayCommand]
+        async Task ToggleRead(Message message)
+        {
+            message.IsSeen = !message.IsSeen;
+            await _messageService.UpdateMessageAsync(message);
+            ResortUserCategories();
+        }
+
         {
             UsersWithLastMessage.Clear();
             FavoritedUsersWithLastMessage.Clear();
