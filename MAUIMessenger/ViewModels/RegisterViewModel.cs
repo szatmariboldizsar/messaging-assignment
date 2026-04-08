@@ -39,13 +39,9 @@ namespace MAUIMessenger.ViewModels
 
         public string? UsernameError => GetErrors(nameof(Username))?.Cast<ValidationResult>().FirstOrDefault()?.ErrorMessage;
 
-        public bool HasUsernameError => GetErrors(nameof(Username))?.Cast<object>().Any() == true;
-
         public string? PasswordError => GetErrors(nameof(Password))?.Cast<ValidationResult>().FirstOrDefault()?.ErrorMessage;
-        public bool HasPasswordError => GetErrors(nameof(Password))?.Cast<object>().Any() == true;
 
         public string? FullNameError => GetErrors(nameof(FullName))?.Cast<ValidationResult>().FirstOrDefault()?.ErrorMessage;
-        public bool HasFullNameError => GetErrors(nameof(FullName))?.Cast<object>().Any() == true;
 
         [RelayCommand]
         async Task Register()
@@ -53,13 +49,8 @@ namespace MAUIMessenger.ViewModels
             ValidateAllProperties();
 
             OnPropertyChanged(nameof(UsernameError));
-            OnPropertyChanged(nameof(HasUsernameError));
-
             OnPropertyChanged(nameof(PasswordError));
-            OnPropertyChanged(nameof(HasPasswordError));
-
             OnPropertyChanged(nameof(FullNameError));
-            OnPropertyChanged(nameof(HasFullNameError));
 
             if (!HasErrors)
             {

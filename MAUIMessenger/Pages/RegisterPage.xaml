@@ -4,13 +4,7 @@
              x:Class="MAUIMessenger.Pages.RegisterPage"
              xmlns:viewmodels="clr-namespace:MAUIMessenger.ViewModels"
              x:DataType="viewmodels:RegisterViewModel"
-             xmlns:controls="clr-namespace:MAUIMessenger.Controls"
              >
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <controls:BoolToOpacityDoubleConverter x:Key="BoolToOpacityConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <VerticalStackLayout
         VerticalOptions="Center"
         Padding="30,0"
@@ -22,24 +16,21 @@
         <Label Text="{Binding UsernameError}"
            TextColor="{StaticResource NegativeTertiary}"
            FontSize="Caption"
-           MinimumHeightRequest="18"
-           Opacity="{Binding HasUsernameError, Converter={StaticResource BoolToOpacityConverter}}" />
+           MinimumHeightRequest="18" />
 
         <Label Text="Full Name:" />
         <Entry Text="{Binding FullName}" ReturnCommand="{Binding RegisterCommand}"/>
         <Label Text="{Binding FullNameError}"
             TextColor="{StaticResource NegativeTertiary}"
             FontSize="Caption"
-            MinimumHeightRequest="18"
-            Opacity="{Binding HasFullNameError, Converter={StaticResource BoolToOpacityConverter}}" />
+            MinimumHeightRequest="18" />
         
         <Label Text="Password:" />
         <Entry Text="{Binding Password}"  IsPassword="True" ReturnCommand="{Binding RegisterCommand}"/>
         <Label Text="{Binding PasswordError}"
             TextColor="{StaticResource NegativeTertiary}"
             FontSize="Caption"
-            MinimumHeightRequest="18"
-            Opacity="{Binding HasPasswordError, Converter={StaticResource BoolToOpacityConverter}}" />
+            MinimumHeightRequest="18" />
 
         <Button
         x:Name="RegisterBtn"
