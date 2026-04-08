@@ -50,7 +50,7 @@ namespace messaging_assignment.ViewModels
 
         partial void OnToUserIdChanged(long value)
         {
-            LoadForUserAsync(value);
+            Task.Run(() => LoadForUserAsync(value));
         }
 
         private async Task LoadForUserAsync(long id)

@@ -81,9 +81,9 @@ namespace messaging_assignment.ViewModels
         public static ValidationResult ValidateUsername(string username, ValidationContext context)
         {
             RegisterViewModel instance = (RegisterViewModel)context.ObjectInstance;
-            User? existingUser = Task.Run(async () => await instance._userService.GetUserByUsernameAsync(instance.Username)).GetAwaiter().GetResult();
 
-            if (existingUser != null)
+            // Validation pipeline doesn't support async, so we have to do this synchronously.
+            if (!instance._userService.IsUsernameUnique(username))
             {
                 return new("Username already exists");
             }

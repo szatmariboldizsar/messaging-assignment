@@ -42,8 +42,12 @@ namespace messaging_assignment.ViewModels
             get => LoggedInUser.IsHidden;
             set
             {
-                LoggedInUser.IsHidden = value;
-                Task.Run(async () => await _userService.UpdateUserAsync(LoggedInUser)).GetAwaiter().GetResult();
+                bool oldValue = LoggedInUser.IsHidden;
+                if (oldValue != value)
+                {
+                    LoggedInUser.IsHidden = value;
+                    Task.Run(() => _userService.UpdateUserAsync(LoggedInUser));
+                }
             }
         }
 
@@ -75,28 +79,28 @@ namespace messaging_assignment.ViewModels
         async Task FavoriteUser(User user)
         {
             await _userConnectionService.FavoriteUserForUser(LoggedInUser.Id, user.Id);
-            ResortUserCategories();
+            await ResortUserCategories();
         }
 
         [RelayCommand]
         async Task UnfavoriteUser(User user)
         {
             await _userConnectionService.UnfavoriteUserForUser(LoggedInUser.Id, user.Id);
-            ResortUserCategories();
+            await ResortUserCategories();
         }
 
         [RelayCommand]
         async Task BlockUser(User user)
         {
             await _userConnectionService.BlockUserForUser(LoggedInUser.Id, user.Id);
-            ResortUserCategories();
+            await ResortUserCategories();
         }
 
         [RelayCommand]
         async Task UnblockUser(User user)
         {
             await _userConnectionService.UnblockUserForUser(LoggedInUser.Id, user.Id);
-            ResortUserCategories();
+            await ResortUserCategories();
         }
 
         [RelayCommand]
@@ -111,16 +115,16 @@ namespace messaging_assignment.ViewModels
         {
             message.IsSeen = !message.IsSeen;
             await _messageService.UpdateMessageAsync(message);
-            ResortUserCategories();
+            await ResortUserCategories();
         }
 
-        public void ResortUserCategories()
+        public async Task ResortUserCategories()
         {
             UsersWithLastMessage.Clear();
             FavoritedUsersWithLastMessage.Clear();
             BlockedUsers.Clear();
-            List<UserWithMessage> usersWithLastMessage = Task.Run(async () => await _messageService.GetLastMessagesForUser(LoggedInUser.Id)).GetAwaiter().GetResult();
-            List<UserConnection> userConnections = Task.Run(async () => await _userConnectionService.GetUserConnectionsForUser(LoggedInUser.Id)).GetAwaiter().GetResult();
+            List<UserWithMessage> usersWithLastMessage = await _messageService.GetLastMessagesForUserAsync(LoggedInUser.Id);
+            List<UserConnection> userConnections = await _userConnectionService.GetUserConnectionsForUserAsync(LoggedInUser.Id);
             List<long> connectedUserIds = userConnections.Where(c => c.ConnectedUserId != LoggedInUser.Id).Select(c => c.ConnectedUserId).ToList();
             List<long> hiddenFromUserIds = userConnections.Where(c => c.ConnectedUserId == LoggedInUser.Id && c.IsBlocked).Select(c => c.UserId).Union(usersWithLastMessage.Where(u => u.User.IsHidden).Select(u => u.User.Id)).ToList();
 

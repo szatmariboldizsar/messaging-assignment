@@ -16,7 +16,7 @@ public partial class UsersPage : ContentPage
 
         if (BindingContext is UsersViewModel vm)
         {
-            vm.ResortUserCategories();
+            Task.Run(() => vm.ResortUserCategories());
         }
     }
 }

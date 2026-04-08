@@ -15,7 +15,7 @@ namespace DAL.Services
             _dbContext = dbContext;
         }
 
-        public async Task<List<UserConnection>> GetUserConnectionsForUser(long userId)
+        public async Task<List<UserConnection>> GetUserConnectionsForUserAsync(long userId)
         {
             return await _dbContext.UserConnections.Where(uc => uc.UserId == userId || uc.ConnectedUserId == userId).ToListAsync();
         }

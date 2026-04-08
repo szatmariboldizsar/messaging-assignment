@@ -48,6 +48,11 @@ namespace DAL.Services
             return await _dbContext.Users.Where(u => u.Id != userId).ToListAsync();
         }
 
+        public bool IsUsernameUnique(string username)
+        {
+            return !_dbContext.Users.Where(u => u.Username == username).Any();
+        }
+
         public async Task<User?> GetUserByUsernameAsync(string username)
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
