@@ -56,7 +56,7 @@ namespace DAL.Services
             return await _dbContext.Messages.OrderByDescending(m => m.DateSent).FirstOrDefaultAsync(m => (m.FromUserId == userId1 && m.ToUserId == userId2) || (m.FromUserId == userId2 && m.ToUserId == userId1));
         }
 
-        public async Task<List<UserWithMessage>> GetLastMessagesForUser(long userId)
+        public async Task<List<UserWithMessage>> GetLastMessagesForUserAsync(long userId)
         {
             List<UserWithMessage> lastMessages = new List<UserWithMessage>();
             List<User> users = await _userService.GetAllUsersForUserAsync(userId);
